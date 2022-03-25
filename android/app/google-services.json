@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "134812175326",
+    "project_id": "unit-converter-35df1",
+    "storage_bucket": "unit-converter-35df1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134812175326:android:7631ec6b03c777cd51eb4f",
+        "android_client_info": {
+          "package_name": "com.pike.convi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134812175326-1er5t5b6t5glt45m6hheir00q9580ul3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCloKakO95yP_BAXzXbFL8Z3uNmY5XxjmU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134812175326-1er5t5b6t5glt45m6hheir00q9580ul3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
