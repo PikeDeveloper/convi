@@ -4,7 +4,6 @@
 import 'dart:math';
 
 import 'styled_text.dart';
-
 class CalcHelper {
   static double temperatura(
       double _inputValue, String inputUnit, String outputUnit) {
@@ -13,19 +12,19 @@ class CalcHelper {
     double _fahrenheitDouble;
     double result = 0;
     switch (inputUnit) {
-      case "°C  ":
+      case "°C":
         _celciusDouble = _inputValue;
         _kelvinDouble = _inputValue + 273.15;
         _fahrenheitDouble = ((9 * _inputValue) / 5) + 32;
 
         break;
-      case "°F  ":
+      case "°F":
         _fahrenheitDouble = _inputValue;
         _kelvinDouble = ((5 * (_inputValue - 32)) / 9) + 273.15;
         _celciusDouble = ((5 * (_inputValue - 32)) / 9);
 
         break;
-      case "°K  ":
+      case "°K":
         _kelvinDouble = _inputValue;
         _celciusDouble = _inputValue - 273.15;
         _fahrenheitDouble = ((9 * (_inputValue - 273.15)) / 5) + 32;
@@ -39,13 +38,13 @@ class CalcHelper {
     }
 
     switch (outputUnit) {
-      case "°C  ":
+      case "°C":
         result = _celciusDouble;
         break;
-      case "°F  ":
+      case "°F":
         result = _fahrenheitDouble;
         break;
-      case "°K  ":
+      case "°K":
         result = _kelvinDouble;
         break;
       default:
@@ -2108,14 +2107,14 @@ class CalcHelper {
     return result;
   }
 
-  static String digitReducer(double number) {
+ /* static String digitReducer(double number) {
     String numberReduced = "1";
 //-----Remove all trailing zeros regardless of length:
     numberReduced =
         number.toString().replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), "");
     print(number);
     return numberReduced;
-  }
+  }*/
 }
 
 

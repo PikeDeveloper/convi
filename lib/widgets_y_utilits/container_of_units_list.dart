@@ -12,7 +12,7 @@ class ContainerList extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.zero,
-      width: screenSize.width > 700 ? 220 : 155,
+      width: screenSize.width > 700 ? 220 : 145,
       height: screenSize.width > 700 ? 40 : 35,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),

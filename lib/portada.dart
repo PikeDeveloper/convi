@@ -98,7 +98,7 @@ class _PortadaState extends State<Portada> {
             color: MyColors.blue9B, fontSize: 50, fontWeight: FontWeight.bold),
       ),
       backgroundColor: Colors.white,
-      actions: _accions(),
+     // actions: _accions(),
     );
   }
 

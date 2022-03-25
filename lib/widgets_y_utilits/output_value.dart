@@ -26,7 +26,7 @@ class OutputValue extends StatelessWidget {
                       : Constants.widthTextFieldInputValue,
               child: Center(
                   child:
-                      StyledText(CalcHelper.digitReducer(mainProvider.result))),
+                      StyledText(mainProvider.result.toString())),
             ),
             CustomUnderline()
           ],
