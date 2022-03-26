@@ -14,23 +14,22 @@ import 'intl/messages_all.dart';
 
 class AppLocalizations {
   AppLocalizations();
-
+  
   static AppLocalizations current;
-
-  static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
+  
+  static const AppLocalizationDelegate delegate =
+    AppLocalizationDelegate();
 
   static Future<AppLocalizations> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name);
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name); 
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
       AppLocalizations.current = AppLocalizations();
-
+      
       return AppLocalizations.current;
     });
-  }
+  } 
 
   static AppLocalizations of(BuildContext context) {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
@@ -397,7 +396,7 @@ class AppLocalizations {
   /// `Fuel consumption   `
   String get FuelConsumption {
     return Intl.message(
-      'Fuel consumption',
+      'Fuel consumption   ',
       name: 'FuelConsumption',
       desc: '',
       args: [],

@@ -11,7 +11,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'generated/l10n.dart';
 import 'providers/main_provider.dart';
 import 'screens/energy_screen.dart';
 import 'screens/force_screen.dart';
@@ -98,7 +97,7 @@ class _PortadaState extends State<Portada> {
             color: MyColors.blue9B, fontSize: 50, fontWeight: FontWeight.bold),
       ),
       backgroundColor: Colors.white,
-     // actions: _accions(),
+      // actions: _accions(),
     );
   }
 
