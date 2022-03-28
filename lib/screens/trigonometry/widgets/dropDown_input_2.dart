@@ -1,24 +1,26 @@
-import 'package:calculadorafisica/providers/converter_provider.dart';
+import 'package:calculadorafisica/providers/trigonometry_provider.dart';
 import 'package:calculadorafisica/widgets_y_utilits/carret_down_icon.dart';
 import 'package:calculadorafisica/widgets_y_utilits/colors.dart';
-import 'package:calculadorafisica/widgets_y_utilits/container_of_units_list.dart';
+import 'package:calculadorafisica/widgets_y_utilits/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'constants.dart';
+import 'container_of_pitagoras_inputas.dart';
 
-class DropDownInputUnits extends StatelessWidget {
-  DropDownInputUnits(this._unitList, {Key key}) : super(key: key);
-  List<String> _unitList = [];
+class DropDownInpuItagoras2 extends StatelessWidget {
+  DropDownInpuItagoras2({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final converterProvider = Provider.of<ConverterProvider>(context);
-    return ContainerList(
+
+    final trigonometryProvider = Provider.of<TrigonometryProvider>(context);
+    final List<String> _unitList = trigonometryProvider.sides;
+
+    return ContainerPitagorasInputs(
       DropdownButton(
         alignment: Alignment.bottomRight,
-        icon: CaretDownIcon(),
+        icon: Container(),
         underline: Container(),
         borderRadius: BorderRadius.circular(20),
         dropdownColor: MyColors.dropDownColor,
@@ -26,20 +28,19 @@ class DropDownInputUnits extends StatelessWidget {
           color: MyColors.grayAD,
           fontSize: screenSize.width > 700
               ? Constants.globalBigFontSize
-              : screenSize.width < 400
-                  ? Constants.globalSmallFontSize
-                  : Constants.globalFontSize,
+              : Constants.globalFontSize,
         ),
-        value: converterProvider.inputUnit,
-        items: getOpcionesDropdownInputUnits(context),
+        value: trigonometryProvider.input_2,
+        items: getOpcionesDropdownInputUnits(context, _unitList),
         onChanged: (opt) {
-          converterProvider.inputUnit = opt;
+          trigonometryProvider.input_2 = opt;
         },
       ),
     );
   }
 
-  List<DropdownMenuItem<String>> getOpcionesDropdownInputUnits(context) {
+  List<DropdownMenuItem<String>> getOpcionesDropdownInputUnits(
+      context, List<String> _unitList) {
     List<DropdownMenuItem<String>> lista = [];
     _unitList.forEach((opcion) {
       lista.add(DropdownMenuItem(

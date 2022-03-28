@@ -1,7 +1,7 @@
 import 'package:calculadorafisica/widgets_y_utilits/calc_helper.dart';
 import 'package:flutter/material.dart';
 
-class MainProvider with ChangeNotifier {
+class ConverterProvider with ChangeNotifier {
   String _magnitude = 'Temperature';
 
   String get magnitude => _magnitude;

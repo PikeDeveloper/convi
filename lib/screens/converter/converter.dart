@@ -1,40 +1,40 @@
 import 'dart:io';
-import 'package:calculadorafisica/screens/angle_screen.dart';
-import 'package:calculadorafisica/screens/area_screen.dart';
-import 'package:calculadorafisica/screens/density_screen.dart';
-import 'package:calculadorafisica/screens/mass_screen.dart';
-import 'package:calculadorafisica/screens/sound_screen.dart';
-import 'package:calculadorafisica/screens/speed_screen.dart';
 import 'package:calculadorafisica/widgets_y_utilits/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'providers/main_provider.dart';
-import 'screens/energy_screen.dart';
-import 'screens/force_screen.dart';
-import 'screens/fuel_consumption_screen.dart';
-import 'screens/length_screen.dart';
-import 'screens/power_screen.dart';
-import 'screens/pressure_screen.dart';
-import 'screens/radiation_screen.dart';
-import 'screens/temperature_screen.dart';
-import 'screens/time_screen.dart';
-import 'screens/volumen_screen.dart';
-import 'widgets_y_utilits/convertion_factor.dart';
-import 'widgets_y_utilits/dropDown_magnitudes.dart';
-import 'widgets_y_utilits/styled_text.dart';
+import '../../providers/converter_provider.dart';
+import 'angle_screen.dart';
+import 'area_screen.dart';
+import 'density_screen.dart';
+import 'energy_screen.dart';
+import 'force_screen.dart';
+import 'fuel_consumption_screen.dart';
+import 'length_screen.dart';
+import 'mass_screen.dart';
+import 'power_screen.dart';
+import 'pressure_screen.dart';
+import 'radiation_screen.dart';
+import 'sound_screen.dart';
+import 'speed_screen.dart';
+import 'temperature_screen.dart';
+import 'time_screen.dart';
+import 'volumen_screen.dart';
+import '../../widgets_y_utilits/convertion_factor.dart';
+import '../../widgets_y_utilits/dropDown_magnitudes.dart';
+import '../../widgets_y_utilits/styled_text.dart';
 
-class Portada extends StatefulWidget {
-  static const String route = "/portada";
-  const Portada({Key key}) : super(key: key);
+class ConverterScreen extends StatefulWidget {
+  static const String route = "/ConverterScreen";
+  const ConverterScreen({Key key}) : super(key: key);
 
   @override
-  State<Portada> createState() => _PortadaState();
+  State<ConverterScreen> createState() => _ConverterScreenState();
 }
 
-class _PortadaState extends State<Portada> {
+class _ConverterScreenState extends State<ConverterScreen> {
   List<Widget> _convertionsScreen = [
     Tmeperature(),
     MaasScreen(),
@@ -56,36 +56,33 @@ class _PortadaState extends State<Portada> {
 
   @override
   Widget build(BuildContext context) {
-    final mainProvider = Provider.of<MainProvider>(context);
+    final converterProvider = Provider.of<ConverterProvider>(context);
 
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: _myAppBar(),
-        body: Stack(
+    return Stack(
+      children: [
+        adorno(),
+        Row(
           children: [
-            adorno(),
-            Row(
+            Spacer(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Spacer(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 50),
-                    DropDownMagnitudes(),
-                    SizedBox(height: 38),
-                    _convertionsScreen[mainProvider.currentScreen],
-                    ConvertionFactor(
-                        magnitud: mainProvider.magnitude,
-                        inputUnit: mainProvider.inputUnit,
-                        outputUnit: mainProvider.outputUnit,
-                        conversionFactor: mainProvider.conversionFactor),
-                  ],
-                ),
-                Spacer(),
+                SizedBox(height: 50),
+                DropDownMagnitudes(),
+                SizedBox(height: 38),
+                _convertionsScreen[converterProvider.currentScreen],
+                ConvertionFactor(
+                    magnitud: converterProvider.magnitude,
+                    inputUnit: converterProvider.inputUnit,
+                    outputUnit: converterProvider.outputUnit,
+                    conversionFactor: converterProvider.conversionFactor),
               ],
             ),
+            Spacer(),
           ],
-        ));
+        ),
+      ],
+    );
   }
 
   AppBar _myAppBar() {

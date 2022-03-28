@@ -1,4 +1,4 @@
-import 'package:calculadorafisica/providers/main_provider.dart';
+import 'package:calculadorafisica/providers/converter_provider.dart';
 import 'package:calculadorafisica/widgets_y_utilits/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +28,7 @@ class DropDownMagnitudes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mainProvider = Provider.of<MainProvider>(context);
+    final converterProvider = Provider.of<ConverterProvider>(context);
     final screenSize = MediaQuery.of(context).size;
     return Container(
       // width: 350,
@@ -44,8 +44,10 @@ class DropDownMagnitudes extends StatelessWidget {
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: Row(
               children: [
-                ImageIcon(AssetImage(magnitudeIcon(mainProvider.magnitude)),
-                    color: MyColors.blue9B, size: 30.0),
+                ImageIcon(
+                    AssetImage(magnitudeIcon(converterProvider.magnitude)),
+                    color: MyColors.blue9B,
+                    size: 30.0),
                 SizedBox(width: 19),
                 DropdownButton(
                   icon: CaretDownIcon(),
@@ -58,10 +60,10 @@ class DropDownMagnitudes extends StatelessWidget {
                         ? Constants.globalBigFontSize
                         : Constants.globalFontSize,
                   ),
-                  value: mainProvider.magnitude,
+                  value: converterProvider.magnitude,
                   items: getOpcionesDropdownMagnitudes(),
                   onChanged: (opt) {
-                    mainProvider.magnitude = opt;
+                    converterProvider.magnitude = opt;
                     //-------------------------------set the
                   },
                 ),

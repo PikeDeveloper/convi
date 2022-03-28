@@ -7,3 +7,10 @@ final TextStyle dropDownMenuStyle = TextStyle(
   color: MyColors.grayAD,
   fontSize: Constants.globalFontSize,
 );
+
+double deci(num cantidad, int decimales) {
+  if (decimales == null) {
+    decimales = 2;
+  }
+  return double.parse((cantidad).toStringAsFixed(decimales));
+}

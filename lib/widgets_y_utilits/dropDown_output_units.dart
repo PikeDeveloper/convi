@@ -1,4 +1,4 @@
-import 'package:calculadorafisica/providers/main_provider.dart';
+import 'package:calculadorafisica/providers/converter_provider.dart';
 import 'package:calculadorafisica/widgets_y_utilits/carret_down_icon.dart';
 import 'package:calculadorafisica/widgets_y_utilits/colors.dart';
 import 'package:calculadorafisica/widgets_y_utilits/container_of_units_list.dart';
@@ -14,7 +14,7 @@ class DropDownOutputUnits extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final mainProvider = Provider.of<MainProvider>(context);
+    final converterProvider = Provider.of<ConverterProvider>(context);
     return ContainerList(
       DropdownButton(
         alignment: Alignment.bottomRight,
@@ -30,10 +30,10 @@ class DropDownOutputUnits extends StatelessWidget {
                   ? Constants.globalSmallFontSize
                   : Constants.globalFontSize,
         ),
-        value: mainProvider.outputUnit,
+        value: converterProvider.outputUnit,
         items: getOpcionesDropdownOutputUnits(context),
         onChanged: (opt) {
-          mainProvider.outputUnit = opt;
+          converterProvider.outputUnit = opt;
         },
       ),
     );

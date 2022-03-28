@@ -1,4 +1,4 @@
-import 'package:calculadorafisica/providers/main_provider.dart';
+import 'package:calculadorafisica/providers/converter_provider.dart';
 import 'package:calculadorafisica/widgets_y_utilits/calc_helper.dart';
 import 'package:calculadorafisica/widgets_y_utilits/constants.dart';
 import 'package:calculadorafisica/widgets_y_utilits/dropDown_output_units.dart';
@@ -13,7 +13,7 @@ class OutputValue extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final mainProvider = Provider.of<MainProvider>(context);
+    final converterProvider = Provider.of<ConverterProvider>(context);
     return Row(
       children: [
         Column(
@@ -25,8 +25,7 @@ class OutputValue extends StatelessWidget {
                       ? Constants.smallWidthTextFieldInputValue
                       : Constants.widthTextFieldInputValue,
               child: Center(
-                  child:
-                      StyledText(mainProvider.result.toString())),
+                  child: StyledText(converterProvider.result.toString())),
             ),
             CustomUnderline()
           ],
