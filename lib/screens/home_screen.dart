@@ -29,10 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final homeProvider = Provider.of<HomeProvider>(context);
 
     return Scaffold(
-      drawer: MenuDrawer(),
+      // drawer: MenuDrawer(),
       resizeToAvoidBottomInset: false,
       appBar: _myAppBar(),
-      body: Screens[homeProvider.currentTab],
+      body: Screens[0],
     );
   }
 
@@ -45,13 +45,22 @@ class _HomeScreenState extends State<HomeScreen> {
             color: MyColors.blue9B, fontSize: 50, fontWeight: FontWeight.bold),
       ),
       backgroundColor: Colors.white,
-      // actions: _accions(),
+      actions: _accions(),
     );
   }
 
   List<Widget> _accions() {
     if (Platform.isIOS) {
-      return [Container()];
+      return [
+        IconButton(
+            onPressed: () {
+              Share.share("https://apps.apple.com/us/app/convi/id1616275570");
+            },
+            icon: Icon(
+              Icons.share,
+              color: MyColors.blue9B,
+            ))
+      ];
     } else {
       return [
         PopupMenuButton<String>(
@@ -63,11 +72,11 @@ class _HomeScreenState extends State<HomeScreen> {
           itemBuilder: (context) => [
             PopupMenuItem(
               value:
-                  "https://play.google.com/store/apps/details?id=com.pike.convi&hl=es_CO&gl=US",
+                  "https://play.google.com/store/apps/details?id=com.pike.convi",
               child: StyledText("Android"),
             ),
             PopupMenuItem(
-              value: "https://apps.apple.com/us/app/calc-fisica/id1578202570",
+              value: "https://apps.apple.com/us/app/convi/id1616275570",
               child: StyledText("iOS"),
             ),
           ],

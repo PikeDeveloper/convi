@@ -3,7 +3,6 @@
 
 import 'dart:math';
 
-import 'styled_text.dart';
 class CalcHelper {
   static double temperatura(
       double _inputValue, String inputUnit, String outputUnit) {
@@ -570,7 +569,6 @@ class CalcHelper {
         _metroCubicoDouble = _litroDouble / 1000;
         _mililitroDouble = _inputValue;
         _pulgadaCubicaDouble = _inputValue;
-
         _pieCubicoDouble = _pulgadaCubicaDouble / 1728;
         _eeuuBarrilDouble = _litroDouble / 158.987294928;
         _eeuuGalonDouble = _eeuuBarrilDouble * 42;
@@ -664,7 +662,6 @@ class CalcHelper {
         _metroCubicoDouble = _litroDouble / 1000;
         _mililitroDouble = _litroDouble * 1000;
         _pulgadaCubicaDouble = (_inputValue / 4) * 231;
-
         _pieCubicoDouble = _pulgadaCubicaDouble / 1728;
         _eeuuBarrilDouble = (_inputValue / 4) / 42;
         _eeuuGalonDouble = _inputValue / 4;
@@ -943,7 +940,7 @@ class CalcHelper {
         _imperialCucharitaDouble = _imperialCucharadaDouble * 3;
         break;
 
-      case 'Imperial tbsp ':
+      case 'Imperial tbsp':
         _litroDouble = (_inputValue / 8960) * 159.11315;
         _metroCubicoDouble = _litroDouble / 1000;
         _mililitroDouble = _litroDouble * 1000;
@@ -1078,7 +1075,7 @@ class CalcHelper {
       case 'Imperial fluid oz':
         result = _imperialOnzaFluidaDouble;
         break;
-      case 'Imperial tbsp ':
+      case 'Imperial tbsp':
         result = _imperialCucharadaDouble;
         break;
       case 'Imperial tsp':
@@ -1213,7 +1210,7 @@ class CalcHelper {
         _gradianDouble = _gradosDouble * (400 / 360);
         break;
 
-      case 'Gradian (grad)   ':
+      case 'Gradian (grad)':
         _gradosDouble = _inputValue / (400 / 360);
         _radianesDouble = _gradosDouble * (pi / 180);
         _gradianDouble = _inputValue;
@@ -1232,7 +1229,7 @@ class CalcHelper {
       case 'Radian (rad)':
         result = _radianesDouble;
         break;
-      case 'Gradian (grad)   ':
+      case 'Gradian (grad)':
         result = _gradianDouble;
         break;
       default:
@@ -2107,7 +2104,7 @@ class CalcHelper {
     return result;
   }
 
- /* static String digitReducer(double number) {
+  /* static String digitReducer(double number) {
     String numberReduced = "1";
 //-----Remove all trailing zeros regardless of length:
     numberReduced =
