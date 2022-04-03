@@ -2,11 +2,12 @@ import 'package:calculadorafisica/generated/l10n.dart';
 import 'package:calculadorafisica/providers/trigonometry_provider.dart';
 import 'package:calculadorafisica/widgets_y_utilits/colors.dart';
 import 'package:calculadorafisica/widgets_y_utilits/constants.dart';
+import 'package:calculadorafisica/widgets_y_utilits/custom_underline.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class InputCatetoA extends StatelessWidget {
-  InputCatetoA({Key key}) : super(key: key);
+class InputCatetoB extends StatelessWidget {
+  InputCatetoB({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +20,14 @@ class InputCatetoA extends StatelessWidget {
         Column(
           children: [
             Container(
-              width: 80,
+              width: Constants.widthInputTrigonometry,
               child: TextField(
                   textAlignVertical: TextAlignVertical.bottom,
                   textAlign: TextAlign.center,
                   cursorColor: MyColors.blue9B,
                   decoration: InputDecoration(
                     hintStyle: TextStyle(color: Colors.grey),
-                    hintText: AppLocalizations.current.EnterValue,
+                    // hintText: AppLocalizations.current.EnterValue,
                     focusColor: MyColors.blue9B,
                     hoverColor: MyColors.blue9B,
                     fillColor: Colors.white,
@@ -41,10 +42,11 @@ class InputCatetoA extends StatelessWidget {
                   ),
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   onChanged: (value) {
-                    trigonometryProvider.catetoA = double.parse(value);
+                    trigonometryProvider.legB = double.parse(value);
                     ;
                   }),
             ),
+            // CustomUnderline()
           ],
         ),
         SizedBox(width: 6),

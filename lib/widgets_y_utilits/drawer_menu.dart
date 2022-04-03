@@ -1,6 +1,5 @@
 import 'package:calculadorafisica/providers/home_provider.dart';
 import 'package:calculadorafisica/widgets_y_utilits/colors.dart';
-import 'package:calculadorafisica/widgets_y_utilits/styled_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +10,7 @@ class MenuDrawer extends StatelessWidget {
     final homeProvider = Provider.of<HomeProvider>(context);
 
     return Drawer(
-      backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+      backgroundColor: Colors.white,
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
@@ -74,7 +73,7 @@ class MenuDrawer extends StatelessWidget {
   StatelessWidget icono(int index) {
     switch (index) {
       case 0:
-        return FaIcon(FontAwesomeIcons.userAlt);
+        return FaIcon(FontAwesomeIcons.rightLeft);
         break;
       case 1:
         return FaIcon(FontAwesomeIcons.code);

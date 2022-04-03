@@ -5,5 +5,6 @@ class HomeProvider with ChangeNotifier {
   int get currentTab => _currentTab;
   set currentTab(int currentTab) {
     _currentTab = currentTab;
+    notifyListeners();
   }
 }

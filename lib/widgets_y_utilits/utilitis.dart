@@ -8,9 +8,9 @@ final TextStyle dropDownMenuStyle = TextStyle(
   fontSize: Constants.globalFontSize,
 );
 
-double deci(num cantidad, int decimales) {
-  if (decimales == null) {
-    decimales = 2;
+double deci(num cantidad, int decimals) {
+  if (decimals == null) {
+    decimals = 2;
   }
-  return double.parse((cantidad).toStringAsFixed(decimales));
+  return double.parse((cantidad).toStringAsFixed(decimals));
 }

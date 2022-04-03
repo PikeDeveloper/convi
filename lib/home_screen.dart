@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:calculadorafisica/providers/home_provider.dart';
 import 'package:calculadorafisica/screens/converter/converter.dart';
@@ -8,7 +7,7 @@ import 'package:calculadorafisica/widgets_y_utilits/drawer_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
-import '../../widgets_y_utilits/styled_text.dart';
+import '../widgets_y_utilits/styled_text.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String route = "/HomeScreen";
@@ -29,15 +28,16 @@ class _HomeScreenState extends State<HomeScreen> {
     final homeProvider = Provider.of<HomeProvider>(context);
 
     return Scaffold(
-      // drawer: MenuDrawer(),
+      drawer: MenuDrawer(),
       resizeToAvoidBottomInset: false,
       appBar: _myAppBar(),
-      body: Screens[0],
+      body: Screens[homeProvider.currentTab],
     );
   }
 
   AppBar _myAppBar() {
     return AppBar(
+      iconTheme: IconThemeData(color: MyColors.blue9B),
       centerTitle: true,
       title: Text(
         "Convi",
