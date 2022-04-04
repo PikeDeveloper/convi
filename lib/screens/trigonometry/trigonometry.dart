@@ -22,19 +22,25 @@ class _TrigonometryScreenState extends State<TrigonometryScreen> {
   @override
   Widget build(BuildContext context) {
     final trigonometryProvider = Provider.of<TrigonometryProvider>(context);
+    final screensize = MediaQuery.of(context).size;
 
-    return Row(
-      children: [
-        Spacer(),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _trigonometryScreensScreen[trigonometryProvider.currentScreen],
-            SizedBox(height: 20),
-          ],
+    return SizedBox(
+      width: screensize.width,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _trigonometryScreensScreen[trigonometryProvider.currentScreen],
+              SizedBox(
+                height: 20,
+                width: screensize.width,
+              ),
+            ],
+          ),
         ),
-        Spacer(),
-      ],
+      ),
     );
   }
 }

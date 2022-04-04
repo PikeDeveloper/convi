@@ -1,6 +1,5 @@
 import 'package:calculadorafisica/providers/trigonometry_provider.dart';
 import 'package:calculadorafisica/widgets_y_utilits/colors.dart';
-import 'package:calculadorafisica/widgets_y_utilits/custom_underline.dart';
 import 'package:calculadorafisica/widgets_y_utilits/styled_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -92,7 +91,7 @@ class Answer extends StatelessWidget {
     if (in1 == in2) {
       return Container(
         child: Text(
-          "Please select different sides",
+          "Please do not repeat sides or angles",
           style: TextStyle(
               color: MyColors.grayAD,
               fontSize: screenSize.width > 700 ? 24 : 16),
@@ -132,7 +131,11 @@ class Answer extends StatelessWidget {
             ),
           ),
           SizedBox(height: 50),
-          CustomUnderline(),
+          Container(
+            width: 200,
+            height: 0.5,
+            color: MyColors.grayAD,
+          ),
           if (_sideFound == "c:") CStepByStep(),
           if (_sideFound == "b:") BStepByStep(),
           if (_sideFound == "a:") AStepByStep()

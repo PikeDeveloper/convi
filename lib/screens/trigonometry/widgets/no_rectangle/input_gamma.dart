@@ -1,4 +1,3 @@
-import 'package:calculadorafisica/generated/l10n.dart';
 import 'package:calculadorafisica/providers/trigonometry_provider.dart';
 import 'package:calculadorafisica/widgets_y_utilits/colors.dart';
 import 'package:calculadorafisica/widgets_y_utilits/constants.dart';

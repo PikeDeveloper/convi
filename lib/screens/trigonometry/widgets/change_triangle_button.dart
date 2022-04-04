@@ -23,7 +23,7 @@ class ChangeTriangleButon extends StatelessWidget {
               border: Border.all(color: MyColors.blue9B),
             ),
             child: Icon(
-              FontAwesomeIcons.exchangeAlt,
+              FontAwesomeIcons.rightLeft,
               color: MyColors.blue9B,
               size: screenSize.width > 700 ? 40 : 30,
             ),

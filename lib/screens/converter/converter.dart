@@ -1,9 +1,7 @@
-import 'dart:io';
 import 'package:calculadorafisica/widgets_y_utilits/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../providers/converter_provider.dart';
 import 'angle_screen.dart';
@@ -24,7 +22,6 @@ import 'time_screen.dart';
 import 'volumen_screen.dart';
 import '../../widgets_y_utilits/convertion_factor.dart';
 import '../../widgets_y_utilits/dropDown_magnitudes.dart';
-import '../../widgets_y_utilits/styled_text.dart';
 
 class ConverterScreen extends StatefulWidget {
   static const String route = "/ConverterScreen";
@@ -85,45 +82,45 @@ class _ConverterScreenState extends State<ConverterScreen> {
     );
   }
 
-  AppBar _myAppBar() {
-    return AppBar(
-      centerTitle: true,
-      title: Text(
-        "Convi",
-        style: TextStyle(
-            color: MyColors.blue9B, fontSize: 50, fontWeight: FontWeight.bold),
-      ),
-      backgroundColor: Colors.white,
-      // actions: _accions(),
-    );
-  }
+  // AppBar _myAppBar() {
+  //   return AppBar(
+  //     centerTitle: true,
+  //     title: Text(
+  //       "Convi",
+  //       style: TextStyle(
+  //           color: MyColors.blue9B, fontSize: 50, fontWeight: FontWeight.bold),
+  //     ),
+  //     backgroundColor: Colors.white,
+  //     // actions: _accions(),
+  //   );
+  // }
 
-  List<Widget> _accions() {
-    if (Platform.isIOS) {
-      return [Container()];
-    } else {
-      return [
-        PopupMenuButton<String>(
-          icon: Icon(
-            Icons.share,
-            color: MyColors.blue9B,
-          ),
-          onSelected: (link) => Share.share(link),
-          itemBuilder: (context) => [
-            PopupMenuItem(
-              value:
-                  "https://play.google.com/store/apps/details?id=com.pike.convi&hl=es_CO&gl=US",
-              child: StyledText("Android"),
-            ),
-            PopupMenuItem(
-              value: "https://apps.apple.com/us/app/calc-fisica/id1578202570",
-              child: StyledText("iOS"),
-            ),
-          ],
-        ),
-      ];
-    }
-  }
+  // List<Widget> _accions() {
+  //   if (Platform.isIOS) {
+  //     return [Container()];
+  //   } else {
+  //     return [
+  //       PopupMenuButton<String>(
+  //         icon: Icon(
+  //           Icons.share,
+  //           color: MyColors.blue9B,
+  //         ),
+  //         onSelected: (link) => Share.share(link),
+  //         itemBuilder: (context) => [
+  //           PopupMenuItem(
+  //             value:
+  //                 "https://play.google.com/store/apps/details?id=com.pike.convi&hl=es_CO&gl=US",
+  //             child: StyledText("Android"),
+  //           ),
+  //           PopupMenuItem(
+  //             value: "https://apps.apple.com/us/app/calc-fisica/id1578202570",
+  //             child: StyledText("iOS"),
+  //           ),
+  //         ],
+  //       ),
+  //     ];
+  //   }
+  // }
 
   Widget adorno() {
     final screenSize = MediaQuery.of(context).size;

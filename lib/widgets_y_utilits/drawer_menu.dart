@@ -14,14 +14,15 @@ class MenuDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          SizedBox(height: 40),
+          SizedBox(height: 80),
+
           // DrawerHeader(
           //   padding: EdgeInsets.all(15),
           //   margin: EdgeInsets.all(15),
           //   child: Container(),
           //   decoration: BoxDecoration(
           //       image: DecorationImage(
-          //           image: AssetImage("assets/images/soloPilutec.png"),
+          //           image: AssetImage("imagenes/dart_logo.png"),
           //           fit: BoxFit.contain)),
           // ),
           opcion(
@@ -56,7 +57,7 @@ class MenuDrawer extends StatelessWidget {
             child: Row(
               children: [
                 SizedBox(width: 20),
-                icono(index),
+                // icono(index),
                 SizedBox(width: 10),
                 Text(
                   text,
@@ -76,7 +77,7 @@ class MenuDrawer extends StatelessWidget {
         return FaIcon(FontAwesomeIcons.rightLeft);
         break;
       case 1:
-        return FaIcon(FontAwesomeIcons.code);
+        return FaIcon(FontAwesomeIcons.angleDown);
         break;
       case 2:
         return FaIcon(FontAwesomeIcons.penNib);

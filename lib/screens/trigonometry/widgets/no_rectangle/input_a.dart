@@ -40,7 +40,7 @@ class InputA extends StatelessWidget {
                   ),
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   onChanged: (value) {
-                    trigonometryProvider.alpha = double.parse(value);
+                    trigonometryProvider.sideA = double.parse(value);
                     ;
                   }),
             ),

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../container_of_pitagoras_inputs.dart';
 
-class AnswerSelecterNorectable extends StatelessWidget {
-  AnswerSelecterNorectable({Key key}) : super(key: key);
+class AnswerSelecterNoRectable extends StatelessWidget {
+  AnswerSelecterNoRectable({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

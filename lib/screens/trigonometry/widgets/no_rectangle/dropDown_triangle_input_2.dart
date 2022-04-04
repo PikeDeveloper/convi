@@ -13,7 +13,7 @@ class DropDownInpuITriangle2 extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     final trigonometryProvider = Provider.of<TrigonometryProvider>(context);
-    final List<String> _unitList = trigonometryProvider.angles;
+    final List<String> _unitList = trigonometryProvider.sidesAndAngle;
 
     return ContainerPitagorasInputs(
       DropdownButton(
