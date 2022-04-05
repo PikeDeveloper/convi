@@ -3,7 +3,7 @@ import 'package:calculadorafisica/widgets_y_utilits/colors.dart';
 import 'package:calculadorafisica/widgets_y_utilits/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../container_of_pitagoras_inputs.dart';
+import '../container_of_triangle_inputs.dart';
 
 class DropDownInpuITriangle1 extends StatelessWidget {
   DropDownInpuITriangle1({Key key}) : super(key: key);
@@ -15,7 +15,7 @@ class DropDownInpuITriangle1 extends StatelessWidget {
     final trigonometryProvider = Provider.of<TrigonometryProvider>(context);
     final List<String> _unitList = trigonometryProvider.sides;
 
-    return ContainerPitagorasInputs(
+    return ContainerTriangleInputs(
       DropdownButton(
         alignment: Alignment.bottomRight,
         icon: Container(),
@@ -23,7 +23,7 @@ class DropDownInpuITriangle1 extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         dropdownColor: MyColors.dropDownColor,
         style: TextStyle(
-          color: MyColors.grayAD,
+          color: MyColors.blue9B,
           fontSize: screenSize.width > 700
               ? Constants.globalBigFontSize
               : Constants.globalFontSize,

@@ -20,7 +20,7 @@ class ChangeTriangleButon extends StatelessWidget {
             height: screenSize.width > 700 ? 60 : 50,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
-              border: Border.all(color: MyColors.blue9B),
+              border: Border.all(color: Colors.white),
             ),
             child: Icon(
               FontAwesomeIcons.rightLeft,

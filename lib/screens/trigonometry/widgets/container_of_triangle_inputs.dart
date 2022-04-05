@@ -1,9 +1,7 @@
-import 'package:calculadorafisica/widgets_y_utilits/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ContainerPitagorasInputs extends StatelessWidget {
-  ContainerPitagorasInputs(this.child, {Key key}) : super(key: key);
+class ContainerTriangleInputs extends StatelessWidget {
+  ContainerTriangleInputs(this.child, {Key key}) : super(key: key);
 
   final Widget child;
 
@@ -13,7 +11,7 @@ class ContainerPitagorasInputs extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.zero,
-      width: screenSize.width > 700 ? 40 : 30,
+      // width: screenSize.width > 700 ? 100 : 80,
       height: screenSize.width > 700 ? 40 : 25,
       // decoration: BoxDecoration(
       //   borderRadius: BorderRadius.circular(10),
@@ -21,14 +19,12 @@ class ContainerPitagorasInputs extends StatelessWidget {
       // ),
       child: Row(
         children: [
-          // Spacer(),
-          FaIcon(
-            FontAwesomeIcons.caretDown,
-            color: MyColors.blue9B,
-            size: 15,
-          ),
+          // FaIcon(
+          //   FontAwesomeIcons.caretDown,
+          //   color: MyColors.blue9B,
+          //   size: 15,
+          // ),
           child,
-          // Spacer(),
         ],
       ),
     );

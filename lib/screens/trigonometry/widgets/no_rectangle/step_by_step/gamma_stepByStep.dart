@@ -4,15 +4,18 @@ import 'package:calculadorafisica/widgets_y_utilits/constants.dart';
 import 'package:calculadorafisica/widgets_y_utilits/fomul.dart';
 import 'package:calculadorafisica/widgets_y_utilits/styled_text.dart';
 import 'package:calculadorafisica/widgets_y_utilits/utilitis.dart';
+import 'package:calculadorafisica/widgets_y_utilits/warning_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../main.dart';
 import '../../ecuation_separator.dart';
+import '../../result.dart';
 
 class GammaStepByStepNoRectangle extends StatelessWidget {
-  const GammaStepByStepNoRectangle({Key key}) : super(key: key);
-  final int decimals = 4;
-  final int angleDdecimals = 4;
+  GammaStepByStepNoRectangle({Key key}) : super(key: key);
+  int decimals = prefs.decimals;
+  int angleDdecimals = prefs.angleDecimals;
 
   @override
   Widget build(BuildContext context) {
@@ -20,34 +23,38 @@ class GammaStepByStepNoRectangle extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     final _fontSize = screenSize.width > 700
-        ? Constants.globalBigFontSize
+        ? Constants.fontsizeEcuationBig
         : screenSize.width < 400
-            ? Constants.globalSmallFontSize
-            : Constants.globalFontSize;
+            ? Constants.fontsizeEcuationSmall
+            : Constants.fontsizeEcuation;
 
     if (trigonometryProvider.inputs.contains(' c:') &&
-        trigonometryProvider.inputs.contains(' al:') &&
+        trigonometryProvider.inputs.contains(' alpha:') &&
         trigonometryProvider.inputs.contains(' a:')) {
-      return _option_1(trigonometryProvider.sideC, trigonometryProvider.alpha,
-          trigonometryProvider.sideA, _fontSize);
+      return _option_1(context, trigonometryProvider.sideC,
+          trigonometryProvider.alpha, trigonometryProvider.sideA, _fontSize);
     }
     if (trigonometryProvider.inputs.contains(" c:") &&
-        trigonometryProvider.inputs.contains(' be:') &&
+        trigonometryProvider.inputs.contains(' beta:') &&
         trigonometryProvider.inputs.contains(" b:")) {
-      return _option_2(trigonometryProvider.sideC, trigonometryProvider.beta,
-          trigonometryProvider.sideB, _fontSize);
+      return _option_2(context, trigonometryProvider.sideC,
+          trigonometryProvider.beta, trigonometryProvider.sideB, _fontSize);
     }
     if (trigonometryProvider.inputs.contains(" a:") &&
         trigonometryProvider.inputs.contains(" b:") &&
         trigonometryProvider.inputs.contains(' c:')) {
-      return _option_3(trigonometryProvider.sideA, trigonometryProvider.sideB,
-          trigonometryProvider.sideC, _fontSize);
+      return _option_3(context, trigonometryProvider.sideA,
+          trigonometryProvider.sideB, trigonometryProvider.sideC, _fontSize);
     }
 
-    return StyledText("No solution");
+    return WarningText(
+        "to calculate gamma it is necessary:\n\noption 1:  c, alpha, a\n\noption 2:  c, beta, b\n\noption 3:  a, b, c");
   }
 
-  Widget _option_1(double _c, double _alpha, double _a, double _fontSize) {
+  Widget _option_1(BuildContext context, double _c, double _alpha, double _a,
+      double _fontSize) {
+    final trigonometryProvider = Provider.of<TrigonometryProvider>(context);
+
     //
     double _alpha_r = (_alpha * pi) / 180; // convert to radians
     //
@@ -59,56 +66,79 @@ class GammaStepByStepNoRectangle extends StatelessWidget {
     //
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Formula(
-            r'\textcolor{gray}{γ = sin^{-1}( \frac{' +
-                _c.toString() +
-                '*sin(' +
-                _alpha.toString() +
-                ')' +
-                '  } {' +
-                _a.toString() +
-                '' +
-                '})}',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{γ = sin^{-1}( \frac{' +
-                _c.toString() +
-                '*' +
-                _sinAlpha.toString() +
-                '' +
-                '  } {' +
-                _a.toString() +
-                '' +
-                '})}',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{γ = sin^{-1}( \frac{' +
-                _cXsinAlpha.toString() +
-                '' +
-                '  } {' +
-                _a.toString() +
-                '' +
-                '})}',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{γ = sin^{-1}( ' +
-                _cXsinAlphaDivA.toString() +
-                ') }',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{γ =  ' + _csc_cXsinAlphaDivA.toString() + '° }',
-            _fontSize),
+        Result(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              StyledText("gamma: "),
+              StyledText(_csc_cXsinAlphaDivA.toString()),
+              StyledText("°"),
+            ],
+          ),
+        ),
+        if (trigonometryProvider.showStepByStep) ...[
+          Formula(
+              r'\textcolor{gray}{γ = sin^{-1}( \frac{c*sin(alpha)' +
+                  '  } {a' +
+                  '})}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{γ = sin^{-1}( \frac{' +
+                  _c.toString() +
+                  '*sin(' +
+                  _alpha.toString() +
+                  ')' +
+                  '  } {' +
+                  _a.toString() +
+                  '' +
+                  '})}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{γ = sin^{-1}( \frac{' +
+                  _c.toString() +
+                  '*' +
+                  _sinAlpha.toString() +
+                  '' +
+                  '  } {' +
+                  _a.toString() +
+                  '' +
+                  '})}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{γ = sin^{-1}( \frac{' +
+                  _cXsinAlpha.toString() +
+                  '' +
+                  '  } {' +
+                  _a.toString() +
+                  '' +
+                  '})}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{γ = sin^{-1}( ' +
+                  _cXsinAlphaDivA.toString() +
+                  ') }',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{γ =  ' +
+                  _csc_cXsinAlphaDivA.toString() +
+                  '° }',
+              _fontSize),
+        ]
       ],
     );
   }
 
-  Widget _option_2(double _c, double _beta, double _b, double _fontSize) {
+  Widget _option_2(BuildContext context, double _c, double _beta, double _b,
+      double _fontSize) {
+    final trigonometryProvider = Provider.of<TrigonometryProvider>(context);
+
     //
     double _beta_r = (_beta * pi) / 180; // convert to radians
     //
@@ -120,56 +150,77 @@ class GammaStepByStepNoRectangle extends StatelessWidget {
     //
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Formula(
-            r'\textcolor{gray}{γ = sin^{-1}( \frac{' +
-                _c.toString() +
-                '*sin(' +
-                _beta.toString() +
-                ')' +
-                '  } {' +
-                _b.toString() +
-                '' +
-                '})}',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{γ = sin^{-1}( \frac{' +
-                _c.toString() +
-                '*' +
-                _sinBeta.toString() +
-                '' +
-                '  } {' +
-                _b.toString() +
-                '' +
-                '})}',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{γ = sin^{-1}( \frac{' +
-                _cXsinBeta.toString() +
-                '' +
-                '  } {' +
-                _b.toString() +
-                '' +
-                '})}',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{γ = sin^{-1}( ' +
-                _cXsinBetaDivB.toString() +
-                ') }',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{γ =  ' + _csc_cXsinBetaDivB.toString() + '° }',
-            _fontSize),
+        Result(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              StyledText("gamma: "),
+              StyledText(_csc_cXsinBetaDivB.toString()),
+              StyledText("°"),
+            ],
+          ),
+        ),
+        if (trigonometryProvider.showStepByStep) ...[
+          Formula(
+              r'\textcolor{gray}{γ = sin^{-1}( \frac{c*sin(beta)' +
+                  '  } {b' +
+                  '})}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{γ = sin^{-1}( \frac{' +
+                  _c.toString() +
+                  '*sin(' +
+                  _beta.toString() +
+                  ')' +
+                  '  } {' +
+                  _b.toString() +
+                  '' +
+                  '})}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{γ = sin^{-1}( \frac{' +
+                  _c.toString() +
+                  '*' +
+                  _sinBeta.toString() +
+                  '' +
+                  '  } {' +
+                  _b.toString() +
+                  '' +
+                  '})}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{γ = sin^{-1}( \frac{' +
+                  _cXsinBeta.toString() +
+                  '' +
+                  '  } {' +
+                  _b.toString() +
+                  '' +
+                  '})}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{γ = sin^{-1}( ' +
+                  _cXsinBetaDivB.toString() +
+                  ') }',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{γ =  ' + _csc_cXsinBetaDivB.toString() + '° }',
+              _fontSize),
+        ]
       ],
     );
   }
 
-  Widget _option_3(double _a, double _b, double _c, double _fontSize) {
+  Widget _option_3(
+      BuildContext context, double _a, double _b, double _c, double _fontSize) {
+    final trigonometryProvider = Provider.of<TrigonometryProvider>(context);
+
     //
     double _a2 = deci(_a * _a, decimals);
     double _b2 = deci(_b * _b, decimals);
@@ -185,73 +236,91 @@ class GammaStepByStepNoRectangle extends StatelessWidget {
 
     //
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Formula(
-            r'\textcolor{gray}{γ = cos^{-1}(  \frac{ '
-                    r' ' +
-                _a.toString() +
-                '^2+' +
-                _b.toString() +
-                '^2-' ' ' +
-                _c.toString() +
-                '^2 } {2 * ' +
-                _a.toString() +
-                '* ' +
-                _b.toString() +
-                '} )}',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{γ = cos^{-1}(  \frac{ '
-                    r' ' +
-                _a2.toString() +
-                '+' +
-                _b2.toString() +
-                '-' ' ' +
-                _c2.toString() +
-                ' } {2 * ' +
-                _a.toString() +
-                '* ' +
-                _b.toString() +
-                '} )}',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{γ = cos^{-1}(  \frac{ '
-                    r' ' +
-                _a2.toString() +
-                '+' +
-                _b2.toString() +
-                '-' ' ' +
-                _c2.toString() +
-                ' } { ' +
-                _2XaXb.toString() +
-                '} )}',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{γ = cos^{-1}(  \frac{ '
-                    r' ' +
-                _a2PlusB2MinusC2.toString() +
-                ' } { ' +
-                _2XaXb.toString() +
-                '} )}',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{γ = cos^{-1}(  '
-                    ' ' +
-                _a2PlusB2MinusC2Div_2XaXb.toString() +
-                ' )}',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{γ =  '
-                    ' ' +
-                _gamma.toString() +
-                '° }',
-            _fontSize),
+        Result(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              StyledText("gamma: "),
+              StyledText(_gamma.toString()),
+              StyledText("°"),
+            ],
+          ),
+        ),
+        if (trigonometryProvider.showStepByStep) ...[
+          Formula(
+              r'\textcolor{gray}{γ = cos^{-1}(  \frac{ '
+              r' a^2+b^2-'
+              ' c^2 } {2 * a* b} )}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{γ = cos^{-1}(  \frac{ '
+                      r' ' +
+                  _a.toString() +
+                  '^2+' +
+                  _b.toString() +
+                  '^2-' ' ' +
+                  _c.toString() +
+                  '^2 } {2 * ' +
+                  _a.toString() +
+                  '* ' +
+                  _b.toString() +
+                  '} )}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{γ = cos^{-1}(  \frac{ '
+                      r' ' +
+                  _a2.toString() +
+                  '+' +
+                  _b2.toString() +
+                  '-' ' ' +
+                  _c2.toString() +
+                  ' } {2 * ' +
+                  _a.toString() +
+                  '* ' +
+                  _b.toString() +
+                  '} )}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{γ = cos^{-1}(  \frac{ '
+                      r' ' +
+                  _a2.toString() +
+                  '+' +
+                  _b2.toString() +
+                  '-' ' ' +
+                  _c2.toString() +
+                  ' } { ' +
+                  _2XaXb.toString() +
+                  '} )}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{γ = cos^{-1}(  \frac{ '
+                      r' ' +
+                  _a2PlusB2MinusC2.toString() +
+                  ' } { ' +
+                  _2XaXb.toString() +
+                  '} )}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{γ = cos^{-1}(  '
+                      ' ' +
+                  _a2PlusB2MinusC2Div_2XaXb.toString() +
+                  ' )}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{γ =  '
+                      ' ' +
+                  _gamma.toString() +
+                  '° }',
+              _fontSize),
+        ]
       ],
     );
   }

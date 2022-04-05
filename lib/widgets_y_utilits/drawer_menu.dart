@@ -15,16 +15,6 @@ class MenuDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           SizedBox(height: 80),
-
-          // DrawerHeader(
-          //   padding: EdgeInsets.all(15),
-          //   margin: EdgeInsets.all(15),
-          //   child: Container(),
-          //   decoration: BoxDecoration(
-          //       image: DecorationImage(
-          //           image: AssetImage("imagenes/dart_logo.png"),
-          //           fit: BoxFit.contain)),
-          // ),
           opcion(
             context,
             0,
@@ -40,6 +30,14 @@ class MenuDrawer extends StatelessWidget {
             'Trigonometry',
             () {
               homeProvider.currentTab = 1;
+            },
+          ),
+          opcion(
+            context,
+            2,
+            'Settings',
+            () {
+              homeProvider.currentTab = 2;
             },
           ),
         ],
@@ -59,12 +57,18 @@ class MenuDrawer extends StatelessWidget {
                 SizedBox(width: 20),
                 // icono(index),
                 SizedBox(width: 10),
-                Text(
-                  text,
-                  style: TextStyle(
-                      color: homeProvider.currentTab == index
-                          ? MyColors.blue9B
-                          : MyColors.grayAD),
+                Row(
+                  children: [
+                    Text(
+                      text,
+                      style: TextStyle(color: MyColors.blue9B),
+                    ),
+                    if (homeProvider.currentTab == index)
+                      Icon(
+                        Icons.check,
+                        color: MyColors.blue9B,
+                      )
+                  ],
                 )
               ],
             )),

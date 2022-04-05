@@ -7,4 +7,11 @@ class HomeProvider with ChangeNotifier {
     _currentTab = currentTab;
     notifyListeners();
   }
+
+  double _result = 0;
+  double get result => _result;
+  set result(double result) {
+    _result = result;
+    notifyListeners();
+  }
 }

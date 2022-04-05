@@ -1,19 +1,29 @@
 import 'dart:math';
-
 import 'package:calculadorafisica/providers/trigonometry_provider.dart';
+import 'package:calculadorafisica/widgets_y_utilits/constants.dart';
 import 'package:calculadorafisica/widgets_y_utilits/fomul.dart';
+import 'package:calculadorafisica/widgets_y_utilits/styled_text.dart';
 import 'package:calculadorafisica/widgets_y_utilits/utilitis.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../main.dart';
+import '../result.dart';
 
 class CStepByStep extends StatelessWidget {
   const CStepByStep({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     final trigonometryProvider = Provider.of<TrigonometryProvider>(context);
-    double _ecuationSize = 12;
-    int _decimals = 2;
+    double _ecuationSize = screenSize.width > 700
+        ? Constants.fontsizeEcuationBig
+        : screenSize.width < 400
+            ? Constants.fontsizeEcuationSmall
+            : Constants.fontsizeEcuation;
+    int _decimals = prefs.decimals;
     double _a_ = trigonometryProvider.legA;
     double _b_ = trigonometryProvider.legB;
     double _b2_ = 1;
@@ -30,36 +40,47 @@ class CStepByStep extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         child: Row(children: [
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Formula(
-                  r'\textcolor{gray}{c = '
-                          r' \sqrt {' +
-                      _a_.toString() +
-                      ' ^2 + ' +
-                      _b_.toString() +
-                      '^2 } }',
-                  _ecuationSize),
-              Formula(
-                  r'\textcolor{gray}{c = '
-                          r' \sqrt {' +
-                      _a2_.toString() +
-                      ' + ' +
-                      _b2_.toString() +
-                      ' } }',
-                  _ecuationSize),
-              Formula(
-                  r'\textcolor{gray}{c = '
-                          r' \sqrt {' +
-                      _a2MasB2_.toString() +
-                      ' } }',
-                  _ecuationSize),
-              Formula(
-                  r'\textcolor{gray}{c = '
-                          r' ' +
-                      _c_.toString() +
-                      ' }',
-                  _ecuationSize)
+              Result(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    StyledText("c: "),
+                    StyledText(_c_.toString()),
+                  ],
+                ),
+              ),
+              if (trigonometryProvider.showStepByStep) ...[
+                Formula(
+                    r'\textcolor{gray}{c = '
+                            r' \sqrt {' +
+                        _a_.toString() +
+                        ' ^2 + ' +
+                        _b_.toString() +
+                        '^2 } }',
+                    _ecuationSize),
+                Formula(
+                    r'\textcolor{gray}{c = '
+                            r' \sqrt {' +
+                        _a2_.toString() +
+                        ' + ' +
+                        _b2_.toString() +
+                        ' } }',
+                    _ecuationSize),
+                Formula(
+                    r'\textcolor{gray}{c = '
+                            r' \sqrt {' +
+                        _a2MasB2_.toString() +
+                        ' } }',
+                    _ecuationSize),
+                Formula(
+                    r'\textcolor{gray}{c = '
+                            r' ' +
+                        _c_.toString() +
+                        ' }',
+                    _ecuationSize)
+              ]
             ],
           ),
         ]));

@@ -2,7 +2,6 @@ import 'package:calculadorafisica/providers/trigonometry_provider.dart';
 import 'package:calculadorafisica/screens/trigonometry/widgets/no_rectangle/dropDown_triangle_input_1.dart';
 import 'package:calculadorafisica/screens/trigonometry/widgets/no_rectangle/input_a.dart';
 import 'package:calculadorafisica/widgets_y_utilits/colors.dart';
-import 'package:calculadorafisica/widgets_y_utilits/styled_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'widgets/change_triangle_button.dart';
@@ -44,14 +43,27 @@ class TriangleNoRectangle extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              DropDownInpuITriangle1(),
-              InputValue(side: trigonometryProvider.input_1),
-              SizedBox(width: 10),
-              DropDownInpuITriangle2(),
-              InputValue(side: trigonometryProvider.input_2),
-              SizedBox(width: 10),
-              DropDownInpuITriangle3(),
-              InputValue(side: trigonometryProvider.input_3),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  DropDownInpuITriangle1(),
+                  InputValue(side: trigonometryProvider.input_1),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  DropDownInpuITriangle2(),
+                  InputValue(side: trigonometryProvider.input_2),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  DropDownInpuITriangle3(),
+                  InputValue(side: trigonometryProvider.input_3),
+                ],
+              ),
             ],
           ),
           SizedBox(height: 30),
@@ -82,13 +94,13 @@ class InputValue extends StatelessWidget {
       case " c:":
         return InputC();
         break;
-      case ' al:':
+      case ' alpha:':
         return InputAlpha();
         break;
-      case ' be:':
+      case ' beta:':
         return InputBeta();
         break;
-      case " γ:":
+      case ' gamma:':
         return InputGamma();
         break;
       default:
@@ -99,7 +111,7 @@ class InputValue extends StatelessWidget {
 }
 
 class AnswerNoRectangle extends StatelessWidget {
-  const AnswerNoRectangle({
+  AnswerNoRectangle({
     Key key,
   }) : super(key: key);
 
@@ -126,29 +138,20 @@ class AnswerNoRectangle extends StatelessWidget {
           Row(
             children: [
               AnswerSelecterNoRectable(),
-              Container(
-                height: 25,
-                width: 70,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: MyColors.blue9B),
-                ),
-                child: Center(
-                    child: StyledText(trigonometryProvider.result.toString())),
-              ),
             ],
           ),
           SizedBox(height: 50),
           Divider(
+            height: 2,
             color: MyColors.grayAD,
             thickness: 1,
           ),
-          if (_unknown == ' a:') AStepByStepNoRectangle(),
-          if (_unknown == ' b:') BStepByStepNoRectangle(),
-          if (_unknown == ' c:') CStepByStepNoRectangle(),
-          if (_unknown == ' al:') AlphaStepByStepNoRectangle(),
-          if (_unknown == ' be:') BetaStepByStepNoRectangle(),
-          if (_unknown == ' γ:') GammaStepByStepNoRectangle(),
+          if (_unknown == 'a: ?') AStepByStepNoRectangle(),
+          if (_unknown == 'b: ?') BStepByStepNoRectangle(),
+          if (_unknown == 'c: ?') CStepByStepNoRectangle(),
+          if (_unknown == 'alpha: ?') AlphaStepByStepNoRectangle(),
+          if (_unknown == 'beta: ?') BetaStepByStepNoRectangle(),
+          if (_unknown == 'gamma: ?') GammaStepByStepNoRectangle(),
         ],
       );
     }

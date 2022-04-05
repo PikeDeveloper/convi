@@ -15,6 +15,13 @@ class TrigonometryProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  bool _showStepByStep = true;
+  bool get showStepByStep => _showStepByStep;
+  set showStepByStep(bool showStepByStep) {
+    _showStepByStep = showStepByStep;
+    notifyListeners();
+  }
+
   List<String> _sides = [' a:', ' b:', ' c:'];
   List<String> get sides => _sides;
   set sides(List<String> sides) {
@@ -22,14 +29,35 @@ class TrigonometryProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  List<String> _sidesAndAngle = [' a:', ' b:', ' c:', ' al:', ' be:', ' γ:'];
+  List<String> _sidesAndAngleUnknow = [
+    'a: ?',
+    'b: ?',
+    'c: ?',
+    'alpha: ?',
+    'beta: ?',
+    'gamma: ?'
+  ];
+  List<String> get sidesAndAngleUnknow => _sidesAndAngleUnknow;
+  set sidesAndAngleUnknow(List<String> sidesAndAngleUnknow) {
+    _sidesAndAngleUnknow = sidesAndAngleUnknow;
+    notifyListeners();
+  }
+
+  List<String> _sidesAndAngle = [
+    ' a:',
+    ' b:',
+    ' c:',
+    ' alpha:',
+    ' beta:',
+    ' gamma:'
+  ];
   List<String> get sidesAndAngle => _sidesAndAngle;
   set sidesAndAngle(List<String> sidesAndAngle) {
     _sidesAndAngle = sidesAndAngle;
     notifyListeners();
   }
 
-  List<String> _angles = [' al:', ' be:', ' γ:'];
+  List<String> _angles = [' alpha:', ' beta:', ' gamma:'];
   List<String> get angles => _angles;
   set angles(List<String> angles) {
     _angles = angles;
@@ -79,7 +107,7 @@ class TrigonometryProvider with ChangeNotifier {
 
 //-------------------------------------------------no rectangle
 
-  List<String> _inputs = [' a:', ' be:', ' c:'];
+  List<String> _inputs = [' a:', ' beta:', ' c:'];
   List<String> get inputs => _inputs;
   set inputs(List<String> inputs) {
     _inputs = inputs;
@@ -95,7 +123,7 @@ class TrigonometryProvider with ChangeNotifier {
   }
 
   //--------------
-  String _input_2 = ' be:';
+  String _input_2 = ' beta:';
   String get input_2 => _input_2;
   set input_2(String input_2) {
     _input_2 = input_2;
@@ -161,7 +189,7 @@ class TrigonometryProvider with ChangeNotifier {
   }
 
   //--------------
-  String _unknown = ' c:';
+  String _unknown = 'a: ?';
   String get unknown => _unknown;
   set unknown(String unknown) {
     _unknown = unknown;

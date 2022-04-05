@@ -4,21 +4,19 @@ import 'package:calculadorafisica/providers/trigonometry_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-
-// import 'converter/src/datos_persistentes/preferencias_usuario.dart';
+import 'datos_persistentes/users_prefeences.dart';
 import 'providers/converter_provider.dart';
 import 'widgets_y_utilits/colors.dart';
 import 'widgets_y_utilits/route.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //
-  // final prefs = new PreferenciasUsuario();
-  // await prefs.initPrefs();
+  final prefs = new PreferenciasUsuario();
+  await prefs.initPrefs();
   runApp(MyApp());
 }
 
-// final prefs = new PreferenciasUsuario();
+final prefs = new PreferenciasUsuario();
 
 class MyApp extends StatelessWidget {
   @override

@@ -109,36 +109,12 @@ class Answer extends StatelessWidget {
       }
       // trigonometryProvider.sideUnKnow = _sideFound;
       return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            height: 25,
-            width: 70,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: MyColors.blue9B),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  _sideFound,
-                  style: TextStyle(
-                      color: MyColors.grayAD,
-                      fontSize: screenSize.width > 700 ? 24 : 18),
-                ),
-                StyledText(trigonometryProvider.result.toString()),
-              ],
-            ),
-          ),
-          SizedBox(height: 50),
-          Container(
-            width: 200,
-            height: 0.5,
-            color: MyColors.grayAD,
-          ),
           if (_sideFound == "c:") CStepByStep(),
           if (_sideFound == "b:") BStepByStep(),
-          if (_sideFound == "a:") AStepByStep()
+          if (_sideFound == "a:") AStepByStep(),
+          SizedBox(height: 10),
         ],
       );
     }

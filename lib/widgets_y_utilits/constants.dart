@@ -7,4 +7,10 @@ class Constants {
   static const double globalFontSize = 16;
   static const double globalBigFontSize = 25;
   static const double widthInputTrigonometry = 55;
+  static const double widthInputTrigonometryWide = 150;
+  static const int decimals = 4;
+  static const int angleDecimals = 4;
+  static const double fontsizeEcuationSmall = 12;
+  static const double fontsizeEcuation = 16;
+  static const double fontsizeEcuationBig = 20;
 }

@@ -18,7 +18,9 @@ class InputAlpha extends StatelessWidget {
         Column(
           children: [
             Container(
-              width: Constants.widthInputTrigonometry,
+              width: screenSize.width > 700
+                  ? Constants.widthInputTrigonometryWide
+                  : Constants.widthInputTrigonometry,
               child: TextField(
                   textAlignVertical: TextAlignVertical.bottom,
                   textAlign: TextAlign.center,

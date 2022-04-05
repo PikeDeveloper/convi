@@ -1,18 +1,19 @@
 import 'dart:math';
 import 'package:calculadorafisica/providers/trigonometry_provider.dart';
+import 'package:calculadorafisica/screens/trigonometry/widgets/result.dart';
 import 'package:calculadorafisica/widgets_y_utilits/constants.dart';
 import 'package:calculadorafisica/widgets_y_utilits/fomul.dart';
 import 'package:calculadorafisica/widgets_y_utilits/styled_text.dart';
 import 'package:calculadorafisica/widgets_y_utilits/utilitis.dart';
+import 'package:calculadorafisica/widgets_y_utilits/warning_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../ecuation_separator.dart';
 
 class AStepByStepNoRectangle extends StatelessWidget {
-  const AStepByStepNoRectangle({Key key}) : super(key: key);
-  final int decimals = 2;
-  final int angleDdecimals = 4;
+  AStepByStepNoRectangle({Key key}) : super(key: key);
+  int decimals = Constants.decimals;
+  int angleDdecimals = Constants.angleDecimals;
 
   @override
   Widget build(BuildContext context) {
@@ -20,36 +21,38 @@ class AStepByStepNoRectangle extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     final _fontSize = screenSize.width > 700
-        ? Constants.globalBigFontSize
+        ? Constants.fontsizeEcuationBig
         : screenSize.width < 400
-            ? Constants.globalSmallFontSize
-            : Constants.globalFontSize;
+            ? Constants.fontsizeEcuationSmall
+            : Constants.fontsizeEcuation;
 
     if (trigonometryProvider.inputs.contains(' b:') &&
-        trigonometryProvider.inputs.contains(' al:') &&
-        trigonometryProvider.inputs.contains(' be:')) {
-      return _option_1(trigonometryProvider.sideB, trigonometryProvider.alpha,
-          trigonometryProvider.beta, _fontSize);
+        trigonometryProvider.inputs.contains(' alpha:') &&
+        trigonometryProvider.inputs.contains(' beta:')) {
+      return _option_1(context, trigonometryProvider.sideB,
+          trigonometryProvider.alpha, trigonometryProvider.beta, _fontSize);
     }
     if (trigonometryProvider.inputs.contains(" c:") &&
-        trigonometryProvider.inputs.contains(' al:') &&
-        trigonometryProvider.inputs.contains(" γ:")) {
-      return _option_2(trigonometryProvider.sideC, trigonometryProvider.alpha,
-          trigonometryProvider.gamma, _fontSize);
+        trigonometryProvider.inputs.contains(' alpha:') &&
+        trigonometryProvider.inputs.contains(' gamma:')) {
+      return _option_2(context, trigonometryProvider.sideC,
+          trigonometryProvider.alpha, trigonometryProvider.gamma, _fontSize);
     }
     if (trigonometryProvider.inputs.contains(" b:") &&
         trigonometryProvider.inputs.contains(" c:") &&
-        trigonometryProvider.inputs.contains(' al:')) {
-      return _option_3(trigonometryProvider.sideB, trigonometryProvider.sideC,
-          trigonometryProvider.alpha, _fontSize);
+        trigonometryProvider.inputs.contains(' alpha:')) {
+      return _option_3(context, trigonometryProvider.sideB,
+          trigonometryProvider.sideC, trigonometryProvider.alpha, _fontSize);
     }
 
-    return StyledText("No solution");
+    return WarningText(
+        "to calculate a it is necessary:\n\noption 1: b, alpha, beta\n\noption 2: c, alpha, gamma\n\noption 3: b, c, alpha");
   }
 
-  Widget _option_1(double _b, double _alpha, double _beta, double _fontSize) {
+  Widget _option_1(BuildContext context, double _b, double _alpha, double _beta,
+      double _fontSize) {
+    final trigonometryProvider = Provider.of<TrigonometryProvider>(context);
     //
-    // double b = deci(_b, decimals); // trim last decimals
     double alpha_r = (_alpha * pi) / 180; // convert to radians
     double beta_r = (_beta * pi) / 180; // convert to radians
     //
@@ -60,55 +63,75 @@ class AStepByStepNoRectangle extends StatelessWidget {
     //
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Formula(
-            r'\textcolor{gray}{a = \frac{' +
-                _b.toString() +
-                '*sin(' +
-                _alpha.toString() +
-                ')' +
-                '  } {sin(' +
-                _beta.toString() +
-                ')' +
-                '}}',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{a = \frac{' +
-                _b.toString() +
-                '*' +
-                _sinAlfa.toString() +
-                '' +
-                '  } {' +
-                _sinBeta.toString() +
-                '' +
-                '}}',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{a = \frac{' +
-                _bXsinAlpha.toString() +
-                '' +
-                '  } {' +
-                _sinBeta.toString() +
-                '' +
-                '}}',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{a = ' +
-                _bXsinAlphaDivSinBeta.toString() +
-                '' +
-                ' }',
-            _fontSize),
+        Result(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              StyledText("a: "),
+              StyledText(_bXsinAlphaDivSinBeta.toString()),
+            ],
+          ),
+        ),
+        if (trigonometryProvider.showStepByStep) ...[
+          Formula(
+              r'\textcolor{gray}{a = \frac{b*sin (alpha)' +
+                  '  } {sin (beta)' +
+                  '}}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{a = \frac{' +
+                  _b.toString() +
+                  '*sin(' +
+                  _alpha.toString() +
+                  ')' +
+                  '  } {sin(' +
+                  _beta.toString() +
+                  ')' +
+                  '}}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{a = \frac{' +
+                  _b.toString() +
+                  '*' +
+                  _sinAlfa.toString() +
+                  '' +
+                  '  } {' +
+                  _sinBeta.toString() +
+                  '' +
+                  '}}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{a = \frac{' +
+                  _bXsinAlpha.toString() +
+                  '' +
+                  '  } {' +
+                  _sinBeta.toString() +
+                  '' +
+                  '}}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{a = ' +
+                  _bXsinAlphaDivSinBeta.toString() +
+                  '' +
+                  ' }',
+              _fontSize),
+        ]
       ],
     );
   }
 
-  Widget _option_2(double _c, double _alpha, double _gamma, double _fontSize) {
+  Widget _option_2(BuildContext context, double _c, double _alpha,
+      double _gamma, double _fontSize) {
+    final trigonometryProvider = Provider.of<TrigonometryProvider>(context);
+
     //
-    // double c = deci(_c, decimals); // trim last decimals
+
     double alpha_r = (_alpha * pi) / 180; // convert to radians
     double gamma_r = (_gamma * pi) / 180; // convert to radians
     //
@@ -119,56 +142,73 @@ class AStepByStepNoRectangle extends StatelessWidget {
     //
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Formula(
-            r'\textcolor{gray}{a = \frac{' +
-                _c.toString() +
-                '*sin(' +
-                _alpha.toString() +
-                ')' +
-                '  } {sin(' +
-                _gamma.toString() +
-                ')' +
-                '}}',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{a = \frac{' +
-                _c.toString() +
-                '*' +
-                _sinAlfa.toString() +
-                '' +
-                '  } {' +
-                _sinGamma.toString() +
-                '' +
-                '}}',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{a = \frac{' +
-                _cXsinAlpha.toString() +
-                '' +
-                '  } {' +
-                _sinGamma.toString() +
-                '' +
-                '}}',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{a = ' +
-                _cXsinAlphaDivSinGamma.toString() +
-                '' +
-                ' }',
-            _fontSize),
+        Result(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              StyledText("a: "),
+              StyledText(_cXsinAlphaDivSinGamma.toString()),
+            ],
+          ),
+        ),
+        if (trigonometryProvider.showStepByStep) ...[
+          Formula(
+              r'\textcolor{gray}{a = \frac{c*sin(alpha)' +
+                  '  } {sin(gamma)' +
+                  '}}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{a = \frac{' +
+                  _c.toString() +
+                  '*sin(' +
+                  _alpha.toString() +
+                  ')' +
+                  '  } {sin(' +
+                  _gamma.toString() +
+                  ')' +
+                  '}}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{a = \frac{' +
+                  _c.toString() +
+                  '*' +
+                  _sinAlfa.toString() +
+                  '' +
+                  '  } {' +
+                  _sinGamma.toString() +
+                  '' +
+                  '}}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{a = \frac{' +
+                  _cXsinAlpha.toString() +
+                  '' +
+                  '  } {' +
+                  _sinGamma.toString() +
+                  '' +
+                  '}}',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{a = ' +
+                  _cXsinAlphaDivSinGamma.toString() +
+                  '' +
+                  ' }',
+              _fontSize),
+        ]
       ],
     );
   }
 
-  Widget _option_3(double _b, double _c, double _alpha, double _fontSize) {
-    //
-    // double b = deci(_b, decimals); // trim last decimals
-    // double c = deci(_c, decimals); // trim last decimals
+  Widget _option_3(BuildContext context, double _b, double _c, double _alpha,
+      double _fontSize) {
+    final trigonometryProvider = Provider.of<TrigonometryProvider>(context);
+
     double alpha_r = (_alpha * pi) / 180; // convert to radians
 
     double _b2 = deci(_b * _b, decimals);
@@ -187,82 +227,94 @@ class AStepByStepNoRectangle extends StatelessWidget {
     //
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Formula(
-            r'\textcolor{gray}{a = '
-            r' \sqrt {b^2+c^2 -2*b*c*cos(α)} }',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{a = '
-                    r' \sqrt {(' +
-                _b.toString() +
-                ')^2+(' +
-                _c.toString() +
-                ')^2 - 2*' +
-                _b.toString() +
-                ' *' +
-                _c.toString() +
-                '*cos(' +
-                _alpha.toString() +
-                ')} }',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{a = '
-                    r' \sqrt {(' +
-                _b.toString() +
-                ')^2+(' +
-                _c.toString() +
-                ')^2 - 2*' +
-                _b.toString() +
-                ' *' +
-                _c.toString() +
-                '*' +
-                _cosAlpha.toString() +
-                '} }',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{a = '
-                    r' \sqrt {' +
-                _b2.toString() +
-                '+' +
-                _c2.toString() +
-                ' - 2*' +
-                _b.toString() +
-                ' *' +
-                _c.toString() +
-                '*' +
-                _cosAlpha.toString() +
-                '} }',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{a = '
-                    r' \sqrt {' +
-                _b2.toString() +
-                '+' +
-                _c2.toString() +
-                ' - ' +
-                _twoXbXcXcosAlpha.toString() +
-                ' } }',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{a = '
-                    r' \sqrt {' +
-                _b2PlusC2MenusTwoXbXcXcosAlpha.toString() +
-                ' } }',
-            _fontSize),
-        EcuationSeparator(),
-        Formula(
-            r'\textcolor{gray}{a = '
-                    r' ' +
-                _sideA.toString() +
-                '  }',
-            _fontSize),
+        // AnswerSelecterNoRectable(),
+        Result(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              StyledText("a: "),
+              StyledText(_sideA.toString()),
+            ],
+          ),
+        ),
+        if (trigonometryProvider.showStepByStep) ...[
+          Formula(
+              r'\textcolor{gray}{a = '
+              r' \sqrt {b^2+c^2 -2*b*c*cos(α)} }',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{a = '
+                      r' \sqrt {(' +
+                  _b.toString() +
+                  ')^2+(' +
+                  _c.toString() +
+                  ')^2 - 2*' +
+                  _b.toString() +
+                  ' *' +
+                  _c.toString() +
+                  '*cos(' +
+                  _alpha.toString() +
+                  ')} }',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{a = '
+                      r' \sqrt {(' +
+                  _b.toString() +
+                  ')^2+(' +
+                  _c.toString() +
+                  ')^2 - 2*' +
+                  _b.toString() +
+                  ' *' +
+                  _c.toString() +
+                  '*' +
+                  _cosAlpha.toString() +
+                  '} }',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{a = '
+                      r' \sqrt {' +
+                  _b2.toString() +
+                  '+' +
+                  _c2.toString() +
+                  ' - 2*' +
+                  _b.toString() +
+                  ' *' +
+                  _c.toString() +
+                  '*' +
+                  _cosAlpha.toString() +
+                  '} }',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{a = '
+                      r' \sqrt {' +
+                  _b2.toString() +
+                  '+' +
+                  _c2.toString() +
+                  ' - ' +
+                  _twoXbXcXcosAlpha.toString() +
+                  ' } }',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{a = '
+                      r' \sqrt {' +
+                  _b2PlusC2MenusTwoXbXcXcosAlpha.toString() +
+                  ' } }',
+              _fontSize),
+          EcuationSeparator(),
+          Formula(
+              r'\textcolor{gray}{a = '
+                      r' ' +
+                  _sideA.toString() +
+                  '  }',
+              _fontSize),
+        ]
       ],
     );
   }

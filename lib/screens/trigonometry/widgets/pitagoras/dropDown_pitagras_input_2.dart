@@ -24,7 +24,7 @@ class DropDownInpuItagoras2 extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         dropdownColor: MyColors.dropDownColor,
         style: TextStyle(
-          color: MyColors.grayAD,
+          color: MyColors.blue9B,
           fontSize: screenSize.width > 700
               ? Constants.globalBigFontSize
               : Constants.globalFontSize,
