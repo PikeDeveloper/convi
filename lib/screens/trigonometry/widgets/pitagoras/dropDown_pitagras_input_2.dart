@@ -15,7 +15,6 @@ class DropDownInpuItagoras2 extends StatelessWidget {
 
     final trigonometryProvider = Provider.of<TrigonometryProvider>(context);
     final List<String> _unitList = trigonometryProvider.sides;
-
     return ContainerPitagorasInputs(
       DropdownButton(
         alignment: Alignment.bottomRight,
