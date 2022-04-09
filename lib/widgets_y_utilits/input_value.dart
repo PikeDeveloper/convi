@@ -28,6 +28,7 @@ class InputValue extends StatelessWidget {
                       ? Constants.smallWidthTextFieldInputValue
                       : Constants.widthTextFieldInputValue,
               child: TextField(
+                  textInputAction: TextInputAction.done,
                   textAlign: TextAlign.center,
                   cursorColor: MyColors.grayAD,
                   decoration: InputDecoration(

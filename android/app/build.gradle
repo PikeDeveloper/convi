@@ -44,8 +44,8 @@ android {
         applicationId "com.pike.convi"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 4
-        versionName "1.1.2"
+        versionCode 7
+        versionName "1.2.0"
         multiDexEnabled true
     //flutter build apk --release
     //flutter build appbundle

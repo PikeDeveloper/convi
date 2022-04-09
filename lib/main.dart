@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'datos_persistentes/users_prefeences.dart';
 import 'providers/converter_provider.dart';
+import 'providers/geometry_provider.dart';
 import 'widgets_y_utilits/colors.dart';
 import 'widgets_y_utilits/route.dart';
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => HomeProvider()),
         ChangeNotifierProvider(create: (_) => ConverterProvider()),
         ChangeNotifierProvider(create: (_) => TrigonometryProvider()),
+        ChangeNotifierProvider(create: (_) => GeometryProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

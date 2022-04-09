@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import '../widgets_y_utilits/styled_text.dart';
+import 'screens/geometry/geometry_sreen.dart';
 import 'screens/settings.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> Screens = [
     ConverterScreen(),
     TrigonometryScreen(),
+    GeometryScreen(),
     AppSettings(),
   ];
 

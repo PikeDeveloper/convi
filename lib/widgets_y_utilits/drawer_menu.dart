@@ -32,12 +32,20 @@ class MenuDrawer extends StatelessWidget {
               homeProvider.currentTab = 1;
             },
           ),
+          // opcion(
+          //   context,
+          //   2,
+          //   'geometry',
+          //   () {
+          //     homeProvider.currentTab = 2;
+          //   },
+          // ),
           opcion(
             context,
-            2,
+            3,
             'Settings',
             () {
-              homeProvider.currentTab = 2;
+              homeProvider.currentTab = 3;
             },
           ),
         ],
